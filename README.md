@@ -19,11 +19,24 @@ By default, the conversion will happen on the entire `body` element, but you can
 
 For example: `diyOnicConverter('#some-specific-section');`
 
-## TODO
-* [ ] Test on real world examples
+### BETA: Real world sites
+This script provides limited support for loading real-world sites, with the primary caveat being that it is up to the user to determine the parent element containing the text content to be converted.
+
+For example, on this news article:
+
+https://www.cbc.ca/news/world/florida-milton-landfall-preps-1.7346974
+
+The content is contained in an element with the class `.story`, so running the function with `diyOnicConverter('.story')` will correctly render the article in Bionic reading mode.
+
+Future updates will include the ability to dynamically detect the text within any structure of document.
 
 ## Feature Backlog
 
 The following features did not make it into V1 of this (awesome!) application, but are next up in our feature backlog:
 * Supporting anchor tags in the Bionic Reader Text
 * Broader support for a wider range of text in documents
+* Improve handling of special characters
+  * Brackets "(" at the start of a word should not be bolded
+  * Numbers starting a word should not be bolded
+* Support Images inline in the document
+
