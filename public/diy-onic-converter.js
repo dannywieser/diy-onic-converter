@@ -103,8 +103,25 @@ const elementOnicConverter = (element) => {
   return updatedElement;
 }
 
+/**
+ * Given a CSS Selector, this function will replace the contents of the target page with 
+ * a Bionic Reader version of the text contained in the specified element.
+ * 
+ * @param {*} textContentContainerSelector 
+ */
 const diyOnicConverter = (textContentContainerSelector = 'body') => {
   const container = document.querySelector(textContentContainerSelector);
+  const body = textContentContainerSelector === 'body' ? container : document.querySelector('body')
+
+  if (container === null) {
+    console.error(`Invalid selector, no element matching ${textContentContainerSelector} located`);
+    return;
+  }
+
+  if (container.children.length === 0) {
+    console.error(`Target element is empty, cannot process`);
+    return;
+  }
 
   console.log(`Performing bionic reading conversion on: ${textContentContainerSelector}`);
 
@@ -115,14 +132,21 @@ const diyOnicConverter = (textContentContainerSelector = 'body') => {
   div.appendChild(createDocumentHeader())
 
   // create onic-ified versions of every child element that is eligible
+  let matchedElements = 0;
   for (element of container.children) {
     if (shouldElementBeProcessed(element)) {
       div.appendChild(elementOnicConverter(element));
+      matchedElements++;
     }
   }
 
-  container.replaceChildren(div);
-  container.setAttribute("style", getContainerStyles());
+  // if we don't find any matching elements for the conversion, leave the document as is
+  if (matchedElements > 0) {
+    body.replaceChildren(div);
+    container.setAttribute("style", getContainerStyles());
+  } else {
+    console.error(`No eligible elements located as children of selector "${textContentContainerSelector}". Provided selector must contain children of any of the following types: ${conversionTargetTags.join(",")}`)
+  }
 };
 
 // Allow global access so that this can be executed from the console.

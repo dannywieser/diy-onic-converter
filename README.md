@@ -22,8 +22,6 @@ For example: `diyOnicConverter('#some-specific-section');`
 ## TODO
 * [ ] Test on real world examples
 * [ ] Document usage
-* [ ] Replace full document with just the text - "reader view"
-
 * [ ] Should all words be processed? 
 * [ ] Shorter words should not be completely bolded
 * [ ] Handle inner anchor tags
