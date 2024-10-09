@@ -24,13 +24,12 @@ const divStyles = [
 const getContainerStyles = () => containerStyles.join(";")
 const getDivStyles = () => divStyles.join(";")
 
-const gatherElementsToProcess = (targetContainer) => {
-  const elementsToProcess = []
-  // TODO: I'd love to have this be a .map, but can't figure out the syntax :)
-  conversionTargetTags.forEach((tagName) => elementsToProcess.push(...targetContainer.getElementsByTagName(tagName)))
-  return elementsToProcess;
-}
-
+/**
+ * Given an HTML Element, determine if that element should be processed based on the defined configuration
+ * @param {HTMLElement} element 
+ * @returns boolean - should the element be processed for text 
+ */
+const shouldElementBeProcessed = (element) => conversionTargetTags.includes(element.tagName.toLowerCase())
 
 /**
  * Given a word, split the word for onic processing
@@ -92,18 +91,18 @@ const elementOnicConverter = (element) => {
 
 const diyOnicConverter = (textContentContainerSelector = 'body') => {
   const container = document.querySelector(textContentContainerSelector);
-  const conversionElements =  gatherElementsToProcess(container)
 
-  console.log(`Performing bionic reading conversion on: ${textContentContainerSelector}, located ${conversionElements.length} elements to process`);
+  console.log(`Performing bionic reading conversion on: ${textContentContainerSelector}`);
 
   // onic-ified text will be placed in a parent div for styling
   const div = document.createElement('div');
   div.setAttribute("style",getDivStyles());
 
-  // create onic-ified versions of every candidate element
-  // TODO: order of elements is not being respected!
-  for (element of conversionElements) {
-    div.appendChild(elementOnicConverter(element));
+  // create onic-ified versions of every child element that is eligible
+  for (element of container.children) {
+    if (shouldElementBeProcessed(element)) {
+      div.appendChild(elementOnicConverter(element));
+    }
   }
 
   container.replaceChildren(div);
