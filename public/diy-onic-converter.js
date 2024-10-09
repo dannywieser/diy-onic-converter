@@ -39,6 +39,20 @@ const shouldElementBeProcessed = (element) => conversionTargetTags.includes(elem
 const splitWordForOnic = (word) => 
  [ word.substring(0, onicChars), word.substring(onicChars)];
 
+/**
+ * This function will return the header text for the current document.
+ * The preferred source of this text is the `h1` of the page (ideally there should only be one!)
+ * If an h1 is not available, the title of the document is used
+ * @returns An H1 element with the document header
+ */
+const createDocumentHeader = () => {
+  const originalH1 = document.getElementsByTagName("h1");
+  const headerText = originalH1[0] ? originalH1[0].innerText : document.title;
+  const onicH1 = document.createElement("h1")
+  const onicH1Text = document.createTextNode(headerText);
+  onicH1.appendChild(onicH1Text);
+  return onicH1;
+};
 
 /**
  * Given a segment of a word, create a b element to draw attention to these characters
@@ -97,6 +111,8 @@ const diyOnicConverter = (textContentContainerSelector = 'body') => {
   // onic-ified text will be placed in a parent div for styling
   const div = document.createElement('div');
   div.setAttribute("style",getDivStyles());
+  // set header for the document
+  div.appendChild(createDocumentHeader())
 
   // create onic-ified versions of every child element that is eligible
   for (element of container.children) {
