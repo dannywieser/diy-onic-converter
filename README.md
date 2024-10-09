@@ -21,8 +21,9 @@ For example: `diyOnicConverter('#some-specific-section');`
 
 ## TODO
 * [ ] Test on real world examples
-* [ ] Document usage
-* [ ] Should all words be processed? 
-* [ ] Shorter words should not be completely bolded
-* [ ] Handle inner anchor tags
-* [ ] Support other tags than p - just all text
+
+## Feature Backlog
+
+The following features did not make it into V1 of this (awesome!) application, but are next up in our feature backlog:
+* Supporting anchor tags in the Bionic Reader Text
+* Broader support for a wider range of text in documents

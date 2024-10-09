@@ -1,7 +1,7 @@
 // configuration
 const conversionTargetTags = ["p", "small"];
 const boldNode = "b";
-const onicChars = 3;
+const bionicCharPrefixLength = 3;
 
 // CSS Styles
 // Super hacky take on css-in-js 
@@ -15,10 +15,11 @@ const containerStyles = [
 
 const divStyles = [
   "font-size:18px",
-  "text-align: center",
-  "max-width: 60%",
+  "text-align: justify",
+  "max-width: 50%",
   "margin: auto",
   "line-height: 165%",
+  "letter-spacing: 0.1mm",
 ]
 
 const getContainerStyles = () => containerStyles.join(";")
@@ -32,12 +33,17 @@ const getDivStyles = () => divStyles.join(";")
 const shouldElementBeProcessed = (element) => conversionTargetTags.includes(element.tagName.toLowerCase())
 
 /**
- * Given a word, split the word for onic processing
+ * Given a word, split the word for onic processing.
+ * The prefix length is defined in the configuration value `bionicCharPrefixLength`.
+ * However, if the provided word is less than or equal to the prefix, the prefix length is shortened accordingly.
+ * 
  * @param {string} word 
- * @returns 
+ * @returns An array with two elements: the prefix chars and "the rest"
  */
-const splitWordForOnic = (word) => 
- [ word.substring(0, onicChars), word.substring(onicChars)];
+const splitWordForOnic = (word) => {
+  const prefixLength = word.length > bionicCharPrefixLength ? bionicCharPrefixLength : word.length - 1;
+  return [ word.substring(0, prefixLength), word.substring(prefixLength)];
+}
 
 /**
  * This function will return the header text for the current document.
