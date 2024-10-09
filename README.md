@@ -9,9 +9,14 @@ _or…_
 
 ## TODO
 
-* [ ] Get all p tags on the page and just list them out
-* [ ] Parse the words in those p tags into an array
-* [ ] Figure out how to identify which portions of the word to highlight
-* [ ] Figure out how to highlight those words
+* [x] Get all p tags on the page and just list them out
+* [x] Parse the words in those p tags into an array
+* [x] Figure out how to identify which portions of the word to highlight
+* [x] Figure out how to highlight those words 
+   * [ ] Is "B" the right solution? What about CSS selectors?
 * [ ] Test on real world examples
 * [ ] Document usage
+
+* [ ] Should all words be processed?
+* [ ] Handle inner anchor tags
+* [ ] Support other tags than p - just all text
