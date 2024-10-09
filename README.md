@@ -7,16 +7,24 @@ _or…_
 
 **Sta**rt **b**y **read**ing **th**e **challen**ge **instructio**ns **i**n **[INTERVIEW.](./INTERVIEW.md)**[md](./INTERVIEW.md). **Whe**n **yo**u **ar**e **finish**ed, **yo**u **ca**n **edi**t **thi**s **fil**e **t**o **inclu**de **an**y **documentat**ion **fo**r **you**r **wor**k.
 
-## TODO
+## Usage Notes
 
-* [x] Get all p tags on the page and just list them out
-* [x] Parse the words in those p tags into an array
-* [x] Figure out how to identify which portions of the word to highlight
-* [x] Figure out how to highlight those words 
-   * [ ] Is "B" the right solution? What about CSS selectors?
+* Load a page with text in your browser
+* Copy and paste the entire contents of the `./public/diy-onic-converter.js` into the console.
+* Run the script:
+```
+diyOnicConverter();
+```
+By default, the conversion will happen on the entire `body` element, but you can choose to target a specific element based on any selector.
+
+For example: `diyOnicConverter('#some-specific-section');`
+
+## TODO
 * [ ] Test on real world examples
 * [ ] Document usage
+* [ ] Replace full document with just the text - "reader view"
 
-* [ ] Should all words be processed?
+* [ ] Should all words be processed? 
+* [ ] Shorter words should not be completely bolded
 * [ ] Handle inner anchor tags
 * [ ] Support other tags than p - just all text

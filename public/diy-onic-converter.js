@@ -3,6 +3,27 @@ const conversionTargetTags = ["p", "small"];
 const boldNode = "b";
 const onicChars = 3;
 
+// CSS Styles
+// Super hacky take on css-in-js 
+// The trouble with adding these into an external CSS file is how to load that file when the script is run in the console.
+const containerStyles = [
+  "background-color:rgba(28, 28, 30, 0.1)",
+  "display:flex",
+  "flex-direction:column",
+  "justify-content:center",
+]
+
+const divStyles = [
+  "font-size:18px",
+  "text-align: center",
+  "max-width: 60%",
+  "margin: auto",
+  "line-height: 165%",
+]
+
+const getContainerStyles = () => containerStyles.join(";")
+const getDivStyles = () => divStyles.join(";")
+
 const gatherElementsToProcess = (targetContainer) => {
   const elementsToProcess = []
   // TODO: I'd love to have this be a .map, but can't figure out the syntax :)
@@ -66,17 +87,27 @@ const elementOnicConverter = (element) => {
     updatedElement.appendChild(createTextNode(splitWord[1], { addSpacing: true}))
   });
 
-  element.innerHTML = updatedElement.innerHTML;
+  return updatedElement;
 }
 
-const diyOnicConverter = (textContentContainerSelector) => {
+const diyOnicConverter = (textContentContainerSelector = 'body') => {
   const container = document.querySelector(textContentContainerSelector);
   const conversionElements =  gatherElementsToProcess(container)
 
   console.log(`Performing bionic reading conversion on: ${textContentContainerSelector}, located ${conversionElements.length} elements to process`);
+
+  // onic-ified text will be placed in a parent div for styling
+  const div = document.createElement('div');
+  div.setAttribute("style",getDivStyles());
+
+  // create onic-ified versions of every candidate element
+  // TODO: order of elements is not being respected!
   for (element of conversionElements) {
-    elementOnicConverter(element)
+    div.appendChild(elementOnicConverter(element));
   }
+
+  container.replaceChildren(div);
+  container.setAttribute("style", getContainerStyles());
 };
 
 // Allow global access so that this can be executed from the console.
