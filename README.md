@@ -7,6 +7,12 @@ _or…_
 
 **Sta**rt **b**y **read**ing **th**e **challen**ge **instructio**ns **i**n **[INTERVIEW.](./INTERVIEW.md)**[md](./INTERVIEW.md). **Whe**n **yo**u **ar**e **finish**ed, **yo**u **ca**n **edi**t **thi**s **fil**e **t**o **inclu**de **an**y **documentat**ion **fo**r **you**r **wor**k.
 
+## How it Works
+
+This application provides a function that can be invoked in the browser developer tools. It will accept a CSS selector and process any text in `p` and `small` elements that are children of that element - and present that text in an easier to read, distraction free Bionic Reader mode.
+
+Note that the entire document is replaced to improve your reading experience. If you want to return to the original document, just refresh the browser page.
+
 ## Usage Notes
 
 * Load a page with text in your browser
