@@ -1,7 +1,15 @@
 // configuration
-const conversionTargetTag = "p";
+const conversionTargetTags = ["p", "small"];
 const boldNode = "b";
 const onicChars = 3;
+
+const gatherElementsToProcess = (targetContainer) => {
+  const elementsToProcess = []
+  // TODO: I'd love to have this be a .map, but can't figure out the syntax :)
+  conversionTargetTags.forEach((tagName) => elementsToProcess.push(...targetContainer.getElementsByTagName(tagName)))
+  return elementsToProcess;
+}
+
 
 /**
  * Given a word, split the word for onic processing
@@ -63,7 +71,8 @@ const elementOnicConverter = (element) => {
 
 const diyOnicConverter = (textContentContainerSelector) => {
   const container = document.querySelector(textContentContainerSelector);
-  const conversionElements =  container.getElementsByTagName(conversionTargetTag)
+  const conversionElements =  gatherElementsToProcess(container)
+
   console.log(`Performing bionic reading conversion on: ${textContentContainerSelector}, located ${conversionElements.length} elements to process`);
   for (element of conversionElements) {
     elementOnicConverter(element)
